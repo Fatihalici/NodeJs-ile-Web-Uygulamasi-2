@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+    background-color: #FFFDFB;
+}
+
+.login-form {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    border: 0;
+}
+
+.baslik {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 70px;
+    color: #33425B;
+    text-align: center;
+    font-size: 50px;
+}
+
+.centerdiv {
+    color: white;
+    border-radius: 5px;
+    background-color: #FDE9DF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 600px;
+    width: 450px;
+    margin: auto;
+    box-shadow: 6px 6px 2px 0px #33425B;
+}
+
+.btnNinputs {
+    height: 100%;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.img {
+    width: 120px;
+    height: 110px;
+    margin-left: 38px;
+    margin-top: 45px;
+}
+
+.inputs {
+    width: calc(100% / 2);
+    display: inline-block;
+    position: relative;
+    margin-top: 15%;
+}
+
+.buttons {
+    margin-top: 5vh;
+    position: relative;
+}
+
+#text,
+#password {
+    margin-bottom: 25px;
+    /* outline: none; */
+    --input: hsl(218, 28.2%, 27.8%);
+    --input-hover: hsl(30, 100%, 99.2%);
+    --input-active: hsl(218, 28.2%, 21.8%);
+    --input-visited: hsl(218, 28.2%, 34.8%);
+    --input-colour: var(--colour-black);
+    --input-border: var(--colour-black);
+}
+
+input {
+    width: 250px;
+    height: 40px;
+    text-align: center;
+    color: var(--input-colour);
+    font-size: 16px;
+    font-weight: 5;
+    transition: all 0.3s ease-in-out;
+    background: var(--input);
+    border: 2px hidden;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 2px var(--colour-white);
+    margin-right: 1em;
+}
+
+input::placeholder {
+    color: white;
+}
+
+input:hover {
+    border: 2px solid black;
+    color: black;
+    text-decoration: underline;
+    background: var(--input-hover);
+    box-shadow: inset 0 0 0 4px var(--colour-white);
+}
+
+input:hover::placeholder {
+    color: black;
+}
+
+input:active {
+    background: var(--input-active);
+}
+
+input:active::placeholder {
+    color: black;
+}
+
+input:visited {
+    background: var(--input-visited);
+}
+
+#button {
+    margin-left: 47px;
+    --button: hsl(218, 28.2%, 27.8%);
+    --button-hover: hsl(30, 100%, 99.2%);
+    --button-active: hsl(218, 28.2%, 21.8%);
+    --button-visited: hsl(218, 28.2%, 31.8%);
+    --button-colour: var(--colour-black);
+    --button-border: var(--colour-black);
+}
+
+a {
+    margin-left: 47px;
+    color: white;
+    --button: hsl(218, 28.2%, 27.8%);
+    --button-hover: hsl(30, 100%, 99.2%);
+    --button-active: hsl(218, 28.2%, 27.8%);
+    --button-visited: hsl(218, 28.2%, 31.8%);
+    --button-colour: var(--colour-black);
+    --button-border: var(--colour-black);
+}
+
+button {
+    width: 94px;
+    padding: .9rem 1.7rem;
+    color: var(--button-colour);
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    background: var(--button);
+    border: 2px hidden;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 2px var(--colour-black);
+    margin-right: 1em;
+}
+
+button:hover {
+    color: black;
+    border: 2px solid black;
+    text-decoration: underline;
+    background: var(--button-hover);
+    box-shadow: inset 0 0 0 4px var(--colour-white);
+}
+
+button:active {
+    background: var(--button-active);
+}
+
+button:visited {
+    background: var(--button-visited);
+}

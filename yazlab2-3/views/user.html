@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="user.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/adminlogin.html">
+        <button type="button" id="toadminpage" name="toadminpage">AdminLogin</button>
+    </a>
+
+    <div class="user-div">
+        <div class="maindiv">
+            <div class="inputs">
+                <input type="text" id="filtername" name="filtername" value="" placeholder="Araştırmacı Adı Soyadı">
+                <input type="text" id="filterpubname" name="filterpubname" value="" placeholder="Yayın Adı">
+                <input type="text" id="filteryear" name="filteryear" value="" placeholder="Yayın Yılı">
+                <button type="submit" id="submit" name="submit" value="sendData">SEND</button>
+            </div>
+            <div class="alloflists">
+                <div class="resultlist">
+                    <p style="text-align: center;">ARAMA SONUCU</p>
+                    <ol type="1" class="Liste" id="listresult">
+                    </ol>
+                </div>
+                <div class="coauthorlist">
+                    <p style="text-align: center;">BİRLİKTE CALIŞTIĞI YAZARLAR</p>
+                    <ol type="1" class="Liste" id="olcoauthorlist">
+                    </ol>
+                </div>
+                <div class="publist">
+                    <p style="text-align: center;">YAYINLAR</p>
+                    <ol type="1" class="Liste" id="pubollist">
+                    </ol>
+                </div>
+                <div class="yearlist">
+                    <p style="text-align: center;">YILAGORESONUC</p>
+                    <ol type="1" class="Liste" id="yearollist">
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script>
+        // https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.js
+        const socket = io()
+        let filtername = document.querySelector("#filtername");
+        let filterpubname = document.querySelector("#filterpubname");
+        let filteryear = document.querySelector("#filteryear");
+        let submitdatas = document.querySelector("#submit");
+        let olresult = document.querySelector("#listresult");
+        let pubollist = document.querySelector("#pubollist");
+        let yearollist = document.querySelector("#yearollist");
+        let olcoauthorlist = document.querySelector("#olcoauthorlist");
+        const mycoollist = document.getElementById("olcoauthorlist");
+        const myyearollist = document.getElementById("yearollist");
+        const mypubollist = document.getElementById("pubollist");
+        const myolresult = document.getElementById("listresult");
+        let coauthorpubname
+        let coauthoryear
+        let coauthorname
+        console.log(socket);
+        socket.on("connect", () => {
+            socket.on('sendbackalldatas', function(documents, documents2, documents3) {
+                var yayınadı = documents[0]
+                var yayınyeri = documents[1]
+                var yayınturu = documents[2]
+                var yayınyılı = documents[3]
+                var yazaradı = documents[4]
+                if (yazaradı == undefined) {
+                    yazaradı = documents3
+                }
+                documents2.forEach(element => {
+                    var yardımcıyazar = element._fields[0].properties.name
+                    if (yardımcıyazar != yazaradı) {
+                        let li = document.createElement("li");
+                        olcoauthorlist.appendChild(li)
+                        li.appendChild(document.createTextNode("YardımcıYazarAdı: " + yardımcıyazar));
+
+                        let sendButton = document.createElement('button');
+                        sendButton.addEventListener('click', event => {
+                            mycoollist.innerHTML = "";
+                            myolresult.innerHTML = "";
+                            coauthorpubname = filterpubname.value
+                            coauthoryear = filteryear.value
+                            coauthorname = yardımcıyazar
+                            socket.emit('sendcoauthorinfos', coauthorname, coauthorpubname, coauthoryear)
+                        })
+                        li.appendChild(sendButton);
+                        sendButton.innerHTML = 'SEND';
+                        sendButton.classList.add("showcoauthors");
+                        mycoollist.appendChild(li)
+                    }
+                });
+
+                let li = document.createElement("li");
+                olresult.appendChild(li);
+                li.appendChild(document.createTextNode("Arastırmacı: " + yazaradı + "\nYayınadı: " + yayınadı + "\nYayınyılı: " + yayınyılı + "\nYayınyeri: " + yayınyeri + "\nYayınturu: " + yayınturu));
+                myolresult.appendChild(li)
+
+            })
+            socket.on('sendbackpubswithyear', function(documents) {
+                documents.forEach(element => {
+                    var yayınadı = element._fields[0].properties.name
+                    var yayınyılı = element._fields[0].properties.yıl
+                    var yayınyeri = element._fields[0].properties.yayınyeri
+                    var yayınturu = element._fields[0].properties.turu
+                    let li = document.createElement("li");
+                    pubollist.appendChild(li)
+                    li.appendChild(document.createTextNode("Yayınadı: " + yayınadı));
+                    mypubollist.appendChild(li)
+                    let li2 = document.createElement("li");
+                    yearollist.appendChild(li2);
+                    li2.appendChild(document.createTextNode("Yayınyılı: " + yayınyılı + "\nYayınyeri: " + yayınyeri + "\nYayınturu: " + yayınturu));
+                    myyearollist.appendChild(li2)
+                });
+            })
+            socket.on('sendbackpubswithauthorandyear', function(documents, documents2) {
+                uniqueArray = documents2.filter(function(elem, pos) {
+                    return documents2.indexOf(elem) == pos;
+                })
+                documents.forEach(element => {
+                    var yayınadı = element._fields[0].properties.name
+                    var yayınyılı = element._fields[0].properties.yıl
+                    var yayınyeri = element._fields[0].properties.yayınyeri
+                    var yayınturu = element._fields[0].properties.turu
+
+                    let li = document.createElement("li");
+                    pubollist.appendChild(li)
+                    li.appendChild(document.createTextNode("Yayınadı: " + yayınadı));
+                    mypubollist.appendChild(li)
+                    let li2 = document.createElement("li");
+                    olresult.appendChild(li2);
+                    li2.appendChild(document.createTextNode("Yayınyılı: " + yayınyılı + "\nYayınyeri: " + yayınyeri + "\nYayınturu: " + yayınturu));
+                    myolresult.appendChild(li2)
+                });
+                uniqueArray.forEach(element => {
+                    var yardımcıyazar = element
+                    let li = document.createElement("li");
+                    olcoauthorlist.appendChild(li)
+                    li.appendChild(document.createTextNode("YazarAdı: " + yardımcıyazar));
+                    let sendButton = document.createElement('button');
+                    sendButton.addEventListener('click', event => {
+                        mycoollist.innerHTML = "";
+                        myolresult.innerHTML = "";
+                        mypubollist.innerHTML = "";
+                        coauthorpubname = filterpubname.value
+                        coauthoryear = filteryear.value
+                        coauthorname = yardımcıyazar
+                        socket.emit('sendcoauthorinfos', coauthorname, coauthorpubname, coauthoryear)
+                    })
+                    li.appendChild(sendButton);
+                    sendButton.innerHTML = 'SEND';
+                    sendButton.classList.add("showcoauthors");
+                    mycoollist.appendChild(li)
+
+                });
+
+            })
+            socket.on('sendbackpubswithauthor', function(documents) {
+                documents.forEach(element => {
+                    var yayınadı = element._fields[0].properties.name
+                    var yayınyılı = element._fields[0].properties.yıl
+                    var yayınyeri = element._fields[0].properties.yayınyeri
+                    var yayınturu = element._fields[0].properties.turu
+
+                    let li = document.createElement("li");
+                    pubollist.appendChild(li)
+                    li.appendChild(document.createTextNode("Yayınadı: " + yayınadı));
+                    mypubollist.appendChild(li)
+                    let li2 = document.createElement("li");
+                    olresult.appendChild(li2);
+                    li2.appendChild(document.createTextNode("Yayınyılı: " + yayınyılı + "\nYayınyeri: " + yayınyeri + "\nYayınturu: " + yayınturu));
+                    myolresult.appendChild(li2)
+                });
+            })
+
+        })
+        submitdatas.addEventListener('click', event => {
+            mycoollist.innerHTML = "";
+            myolresult.innerHTML = "";
+            mypubollist.innerHTML = "";
+            myyearollist.innerHTML = "";
+            if (filtername.value == "" && filterpubname.value == "" && filteryear.value == "") {
+                alert("Lutfen Bos Alan Bırakmayınız")
+            } else {
+                socket.emit('senddatas', {
+                    filtername: filtername.value,
+                    filterpubname: filterpubname.value,
+                    filteryear: filteryear.value
+                });
+                window.open("http://localhost:3000/neo4jscreen?name=" + filtername.value + "&pubname=" + filterpubname.value + "&year=" + filteryear.value)
+            }
+        })
+    </script>
+</body>
+
+</html>

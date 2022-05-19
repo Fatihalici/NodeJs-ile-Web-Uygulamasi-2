@@ -1,0 +1,190 @@
+body {
+    margin: 0;
+    background-color: #FDE9DF;
+    min-height: 100%;
+    width: 100%;
+}
+
+.user-div {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    box-sizing: border-box;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+div {
+    border: 5px solid #33425B;
+    border-radius: 5px;
+    height: auto;
+    width: auto;
+}
+
+.alloflists {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    height: 300vh;
+    box-sizing: border-box;
+}
+
+
+/* div+div {
+    border-left: 5px solid #33425B;
+    border-top: 5px solid #33425B;
+} */
+
+a {
+    width: 150px;
+    height: 45px;
+    position: absolute;
+    top: 16px;
+    right: 5px;
+    color: white;
+    --button: hsl(218, 28.2%, 27.8%);
+    --button-hover: hsl(30, 100%, 99.2%);
+    --button-active: hsl(218, 28.2%, 21.8%);
+    --button-visited: hsl(218, 28.2%, 31.8%);
+    --button-colour: var(--colour-black);
+    --button-border: var(--colour-black);
+}
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-top: 25px !important;
+}
+
+#filtername,
+#filterpubname,
+#filteryear {
+    color: white;
+    --input: hsl(218, 28.2%, 27.8%);
+    --input-hover: hsl(30, 100%, 99.2%);
+    --input-active: hsl(218, 28.2%, 21.8%);
+    --input-visited: hsl(218, 28.2%, 34.8%);
+    --input-colour: var(--colour-black);
+    --input-border: var(--colour-black);
+}
+
+input {
+    margin-bottom: 30px;
+    width: 250px;
+    height: 40px;
+    text-align: center;
+    color: var(--input-colour);
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    background: var(--input);
+    border: 2px hidden;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 2px var(--colour-white);
+}
+
+input::placeholder {
+    color: white;
+}
+
+input:hover {
+    border: 2px solid black;
+    color: black !important;
+    text-decoration: underline;
+    background: var(--input-hover);
+    box-shadow: inset 0 0 0 4px var(--colour-white);
+}
+
+input:hover::placeholder {
+    color: black;
+}
+
+input:active {
+    background: var(--input-active);
+}
+
+input:active::placeholder {
+    color: black;
+}
+
+input:visited {
+    background: var(--input-visited);
+}
+
+#submit {
+    margin-bottom: 30px;
+    height: 40px;
+    width: 100px;
+}
+
+#toadminpage,
+#submit {
+    color: white !important;
+    --button: hsl(218, 28.2%, 27.8%);
+    --button-hover: hsl(30, 100%, 99.2%);
+    --button-active: hsl(218, 28.2%, 21.8%);
+    --button-visited: hsl(218, 28.2%, 31.8%);
+    --button-colour: var(--colour-black);
+    --button-border: var(--colour-black);
+}
+
+#toadminpage,
+#submit {
+    text-align: center;
+    width: 138px;
+    padding: .7rem;
+    color: var(--button-colour);
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    background: var(--button);
+    border: 2px hidden;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 2px var(--colour-black);
+}
+
+#submit::placeholder {
+    color: white !important;
+}
+
+#toadminpage:hover,
+#submit:hover {
+    color: black !important;
+    border: 2px solid black;
+    text-decoration: underline;
+    background: var(--button-hover);
+    box-shadow: inset 0 0 0 4px var(--colour-white);
+}
+
+#toadminpage:active,
+#submit:active {
+    background: var(--button-active);
+}
+
+#toadminpage:visited,
+#submit:visited {
+    background: var(--button-visited);
+}
+
+ol {
+    list-style-type: decimal-leading-zero;
+    list-style-position: inside;
+    margin: 0;
+    padding: 5px;
+}
+
+ol li {
+    background: #FFFDFB;
+    border-radius: 5px;
+    margin: 8px;
+    padding-left: 15px;
+    line-height: 1.9em;
+}
+
+ol li .showcoauthors {
+    color: black;
+    background-color: #FDE9DF;
+    border: 4px solid #33425B;
+    border-radius: 15px;
+    padding: 5px;
+    margin-left: 100px;
+}
